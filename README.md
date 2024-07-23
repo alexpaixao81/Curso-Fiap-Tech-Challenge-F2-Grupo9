@@ -68,3 +68,6 @@ npm start
 5:Acesse a aplicação no navegador:
 
 http://localhost:3000/public/index.html
+
+Documentação: Postman
+https://documenter.getpostman.com/view/12922384/2sA3kVkMTd
