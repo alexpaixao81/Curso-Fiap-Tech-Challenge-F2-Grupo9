@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciamento de Livros</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Importando o arquivo CSS -->
+</head>
+<body>
+  <h1>Gerenciamento de Livros</h1>
+  <div id="livros"></div>
+
+  <!-- Botões -->
+  <div class="btn-container">
+    <button class="btn-inserir" onclick="abrirFormInserir()">Inserir Livro</button>
+  </div>
+
+  <script>
+    // Função para carregar os livros da API e exibir na página
+    function carregarLivros() {
+      fetch('http://localhost:3000/api/livros')
+        .then(response => response.json())
+        .then(livros => {
+          const livrosList = document.createElement('ul');
+          livros.forEach(livro => {
+            const livroItem = document.createElement('li');
+            livroItem.classList.add('livro-item');
+            livroItem.textContent = `${livro.nome} - ${livro.autor} (${livro.editora})`;
+
+            // Botão para editar livro
+            const btnEditar = document.createElement('button');
+            btnEditar.textContent = 'Editar';
+            btnEditar.classList.add('btn-editar');
+            btnEditar.onclick = () => abrirFormEditar(livro.livro_id);
+            livroItem.appendChild(btnEditar);
+
+            // Botão para excluir livro
+            const btnExcluir = document.createElement('button');
+            btnExcluir.textContent = 'Excluir';
+            btnExcluir.classList.add('btn-excluir');
+            btnExcluir.onclick = () => excluirLivro(livro.livro_id);
+            livroItem.appendChild(btnExcluir);
+
+            livrosList.appendChild(livroItem);
+          });
+          document.getElementById('livros').appendChild(livrosList);
+        })
+        .catch(error => console.error('Erro ao carregar livros:', error));
+    }
+
+    // Função para abrir formulário de inserção
+    function abrirFormInserir() {
+      const formInserir = document.createElement('form');
+      formInserir.innerHTML = `
+        <input type="text" id="inputNome" placeholder="Nome">
+        <input type="text" id="inputAutor" placeholder="Autor">
+        <input type="text" id="inputEditora" placeholder="Editora">
+        <button type="button" onclick="inserirLivro()">Inserir</button>
+      `;
+      document.getElementById('livros').appendChild(formInserir);
+    }
+
+    // Função para inserir livro via API
+    function inserirLivro() {
+      const nome = document.getElementById('inputNome').value;
+      const autor = document.getElementById('inputAutor').value;
+      const editora = document.getElementById('inputEditora').value;
+
+      fetch('http://localhost:3000/api/livros', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nome, autor, editora })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Livro inserido com sucesso:', data);
+        // Limpar o formulário de inserção após a inserção
+        document.getElementById('livros').innerHTML = '';
+        // Atualizar a lista de livros após a inserção
+        carregarLivros();
+      })
+      .catch(error => console.error('Erro ao inserir livro:', error));
+    }
+
+    // Função para abrir formulário de edição
+    function abrirFormEditar(idLivro) {
+      fetch(`http://localhost:3000/api/livros/${idLivro}`)
+        .then(response => response.json())
+        .then(livro => {
+          const formEditar = document.createElement('form');
+          formEditar.innerHTML = `
+            <input type="text" id="inputNome" value="${livro.nome}">
+            <input type="text" id="inputAutor" value="${livro.autor}">
+            <input type="text" id="inputEditora" value="${livro.editora}">
+            <button type="button" onclick="atualizarLivro(${livro.livro_id})">Atualizar</button>
+          `;
+          document.getElementById('livros').appendChild(formEditar);
+        })
+        .catch(error => console.error('Erro ao buscar livro para edição:', error));
+    }
+
+    // Função para atualizar livro via API
+    function atualizarLivro(idLivro) {
+      const nome = document.getElementById('inputNome').value;
+      const autor = document.getElementById('inputAutor').value;
+      const editora = document.getElementById('inputEditora').value;
+
+      fetch(`http://localhost:3000/api/livros/${idLivro}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ nome, autor, editora })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Livro atualizado com sucesso:', data);
+        // Limpar o formulário de edição após a atualização
+        document.getElementById('livros').innerHTML = '';
+        // Atualizar a lista de livros após a atualização
+        carregarLivros();
+      })
+      .catch(error => console.error('Erro ao atualizar livro:', error));
+    }
+
+    // Função para excluir livro
+    function excluirLivro(idLivro) {
+      fetch(`http://localhost:3000/api/livros/${idLivro}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Livro excluído com sucesso');
+          // Atualizar a lista de livros após a exclusão
+          document.getElementById('livros').innerHTML = '';
+          carregarLivros();
+        } else {
+          throw new Error('Erro ao excluir livro');
+        }
+      })
+      .catch(error => console.error(error));
+    }
+
+    // Carregar os livros ao carregar a página
+    carregarLivros();
+  </script>
+</body>
+</html>

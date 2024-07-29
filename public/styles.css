@@ -1,0 +1,60 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px; /* Espaçamento adicional abaixo do título */
+  }
+  
+  .btn-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .btn-container button {
+    margin: 0 10px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* Estilos específicos para os botões */
+  .btn-inserir {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+  }
+  
+  .btn-editar {
+    background-color: #0074D9; /* Azul */
+    color: white;
+    border: none;
+  }
+  
+  .btn-excluir {
+    background-color: #FF4136; /* Vermelho */
+    color: white;
+    border: none;
+  }
+  
+  /* Estilo para os campos do cabeçalho */
+  #livros {
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para os itens da lista de livros */
+  .livros-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .livro-item {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
