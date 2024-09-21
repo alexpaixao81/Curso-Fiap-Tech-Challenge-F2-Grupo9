@@ -74,3 +74,5 @@ https://documenter.getpostman.com/view/12922384/2sA3kVkMTd
 
 instalar o react
 npm install react react-dom
+
+npm install --save-dev webpack webpack-cli
