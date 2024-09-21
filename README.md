@@ -71,3 +71,6 @@ http://localhost:3000/public/index.html
 
 Documentação: Postman
 https://documenter.getpostman.com/view/12922384/2sA3kVkMTd
+
+instalar o react
+npm install react react-dom
