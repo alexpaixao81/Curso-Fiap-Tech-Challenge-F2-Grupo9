@@ -76,3 +76,45 @@ instalar o react
 npm install react react-dom
 
 npm install --save-dev webpack webpack-cli
+
+FASE 3
+
+# Curso-Fiap-Tech-Challenge-F3-Grupo9
+
+## SERVER ##
+Server - abra o terminal para executar a api
+
+#Execute uma vez para baixar dependencias #
+
+1) npm update 
+
+###########################################
+
+1) TECH_CHANLLENGE_3> npm start 
+
+2) Faça um teste de conexão : 
+	http://localhost:5001/api/livros
+
+
+## Client ##
+
+Server - abra outro terminal para executar a aplicação
+
+#Execute uma vez para baixar dependencias #
+
+1) npm update 
+
+###########################################
+
+1) TECH_CHANLLENGE_3\Client\projeto_ger_livros> npm start
+
+2) TECH_CHANLLENGE_3> npm start 
+
+√ Something is already running on port 3000.
+
+Would you like to run the app on another port instead? ... 
+
+(yes)
+
+
+
